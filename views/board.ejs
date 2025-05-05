@@ -7,8 +7,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="http://localhost:3001/writeCheck.js"></script>
     <script type="text/javascript" src="http://localhost:3001/search.js"></script>
-    <!-- <script type="text/javascript" src="http://localhost:3001/sort.js"></script> -->
-    <title>자유 게시판</title>
+    <title>
+        <%= boardTitle %>
+    </title>
 </head>
 
 <body>
@@ -19,15 +20,18 @@
 
     </div>
     <div class="top-container">
-        <h1>자유 게시판</h1>
+        <h1><%= boardTitle %></h1>
+        <div class="board-navigation">
+            <a href="/board/official/1" class="<%= category === 'official' ? 'active' : '' %>">정규 동아리 게시판</a>
+            <a href="/board/unofficial/1" class="<%= category === 'unofficial' ? 'active' : '' %>">사설 동아리 게시판</a>
+        </div>
         <div class="link">
+            <form class="search" action="/board/<%= category %>/1" method="GET" onsubmit="return validateSearch()">
+                <input type="text" name="search" class="keword" placeholder="검색어를 입력하세요.">
+                <input type="submit" class="keword-submit" value="검색">
+            </form>
 
-                <form class="search" action="/board/1" method="GET" onsubmit="return validateSearch()">
-                    <input type="text" name="search" class="keword" placeholder="검색어를 입력하세요.">
-                    <input type="submit" class="keword-submit" value="검색">
-                </form>
-
-            <a href="/write" id="writeButton"><span>글 작성하기</span></a>
+            <a href="/write?category=<%= category %>" id="writeButton"><span>글 작성하기</span></a>
         </div>
     </div>
 
@@ -60,7 +64,7 @@
                                 <%= row.date %>
                             </td>
                             <td class="title">
-                                <a href="/memo?title=<%= row.title %>&value=<%= row.num %>&name=<%= row.name %>">
+                                <a href="/memo?title=<%= row.title %>&value=<%= row.num %>&name=<%= row.name %>&category=<%= category %>">
                                     <%= row.title %>
                                 </a>
                             </td>
@@ -74,14 +78,6 @@
                     <% }) %>
                 <% } %>
         </table>
-
-        <!-- <div class="sort-box">
-          <select class="sort-select">
-            <option value="sortRecent">기본(최신순)</option>
-            <option value="sortViews">조회순</option>
-            <option value="sortLikes">좋아요순</option>
-          </select>
-        </div> -->
     </div>
 
     <div class="container">
@@ -99,9 +95,9 @@
             <% if (curSet > 1) { %>
               <li class="previous">
                 <% if (searchKeyword) { %>
-                  <a href="/board/<%= (startPage - 1) %>?search=<%= encodeURIComponent(searchKeyword) %>">&lt;</a>
+                  <a href="/board/<%= category %>/<%= (startPage - 1) %>?search=<%= encodeURIComponent(searchKeyword) %>">&lt;</a>
                 <% } else { %>
-                  <a href="/board/<%= (startPage - 1) %>" class="previous">&lt;</a>
+                  <a href="/board/<%= category %>/<%= (startPage - 1) %>" class="previous">&lt;</a>
                 <% } %>
               </li>
             <% } %>
@@ -110,11 +106,11 @@
               <% if (i > totalPage) { break; } %>
               <% if (i === curPage) { %>
                 <li class="now">
-                  <a href="/board/<%= i %>?search=<%= encodeURIComponent(searchKeyword) %>"><%= i %></a>
+                  <a href="/board/<%= category %>/<%= i %>?search=<%= encodeURIComponent(searchKeyword) %>"><%= i %></a>
                 </li>
               <% } else { %>
                 <li class="active">
-                  <a href="/board/<%= i %>?search=<%= encodeURIComponent(searchKeyword) %>"><%= i %></a>
+                  <a href="/board/<%= category %>/<%= i %>?search=<%= encodeURIComponent(searchKeyword) %>"><%= i %></a>
                 </li>
               <% } %>
             <% } %>
@@ -122,9 +118,9 @@
             <% if (curSet < totalSet) { %>
               <li class="next">
                 <% if (searchKeyword) { %>
-                  <a href="/board/<%= (endPage + 1) %>?search=<%= encodeURIComponent(searchKeyword) %>">&gt;</a>
+                  <a href="/board/<%= category %>/<%= (endPage + 1) %>?search=<%= encodeURIComponent(searchKeyword) %>">&gt;</a>
                 <% } else { %>
-                  <a href="/board/<%= (endPage + 1) %>">&gt;</a>
+                  <a href="/board/<%= category %>/<%= (endPage + 1) %>">&gt;</a>
                 <% } %>
               </li>
             <% } %>

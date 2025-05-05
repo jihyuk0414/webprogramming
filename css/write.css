@@ -6,6 +6,31 @@ html, body{
     background-color: rgb(240, 240, 227);
 }
 
+.board-navigation {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.board-navigation a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #f5f5f5;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.board-navigation a:hover {
+    background-color: #e0e0e0;
+}
+
+.board-navigation a.active {
+    background-color: #333;
+    color: white;
+}
+
 .container{
     width: max-content;
     /*border:1px solid black;*/

@@ -147,6 +147,7 @@ input[type="button"]:hover{
 .nav > a{
    color:white;
    font-weight:bold;
+   text-decoration: none;
 }
 .li{
     margin-left:60px;
