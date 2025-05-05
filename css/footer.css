@@ -1,0 +1,14 @@
+/* .containerfooter{
+    width: 100%;
+    margin:0 auto;
+    height:250px;
+    position : relative;
+    transform : translateY(-100%);
+} */
+
+.footer{
+    height:250px;
+    width: 100%;
+    background-color: rgb(24, 24, 24);
+
+}

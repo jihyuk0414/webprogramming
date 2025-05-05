@@ -1,0 +1,508 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(240, 240, 227);
+    height: 100%;  
+}
+
+.container{
+    width: 900px;
+    margin:0 auto;
+    height: 150px;
+}
+
+.main-container{
+    height : auto;
+    min-height: 100%;
+    width:100%;
+    margin:0 auto;
+    margin-top: 20px;
+    padding-bottom: 200px;
+}
+
+.content{
+    width: 1100px;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    min-height: 100%;
+}
+
+.table{
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+    height: fit-content;
+}
+
+.top{
+    background: rgb(80, 80, 80);
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.num-title, .name-title, .title-title, .date-title, .watch-title{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 150px;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.num{
+    width: 100px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.date{
+    font-size: 20px;
+    text-align: center;
+    width: 200px;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.name{
+    font-size: 20px;
+    text-align: center;
+    width: 120px;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.title{
+    font-size: 20px;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.watch{
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid rgb(187, 187, 187);
+}
+
+.content-title{
+    background: rgb(80, 80, 80);
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.table-content{
+    font-size: 20px;
+    vertical-align : top;
+    height: 400px;
+}
+
+.back{
+    margin-left: 106px;
+    margin-bottom: 10px;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 7px 10px 7px 10px;
+    width: 150px;
+    cursor: pointer;
+    position: relative;
+    height: 40px;
+    border: none;
+}
+
+.back:hover{
+    background-color: rgb(128, 128, 128);
+    border: none;
+}
+
+.back-img{
+    width: 25px;
+    height: 25px;
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 2px;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(110deg) brightness(104%) contrast(101%);
+}
+
+.back span{
+    margin-right: 10px;
+}
+
+.update-delete{
+    margin-right: 110px;
+    width: 890px;
+    height: 80px;
+    margin: 0 auto;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.update-button{
+    float: right;
+    margin-right: 25px;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 7px 15px 7px 15px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.delete-button{
+    float: right;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 7px 15px 7px 15px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 25px;
+}
+
+.update-button:hover, .delete-button:hover{
+    background-color: rgb(128, 128, 128);
+    border: none;
+}
+
+
+.commend{
+    position: relative;
+    width: 890px;
+    height: 250px;
+    margin: 0 auto;
+    margin-top: 60px;
+    background-color: rgb(231, 230, 230);
+    padding-top: 20px;
+}
+
+.commend-title{
+    line-height: 0;
+    font-size: 25px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.commend hr{
+    width: 96%;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.write-commend{
+    margin: 0 auto;
+    width: 830px;
+    padding-right: 10px;
+}
+.write-textarea{
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    height: 100px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+#textCount{
+    margin-left: 20px;
+}
+#commend-submit{
+    float: right;
+    margin-right: 5px;
+    width: 100px;
+    height: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+#commend-submit:hover{
+    background-color: rgb(128, 128, 128);
+    border: none;
+}
+
+.recommend-div{
+    width: 890px;
+    margin: 0 auto;
+    height: fit-content;
+    padding-top: 10px;
+    background-color: rgb(231, 230, 230);
+}
+
+.empty-div{
+    width: 890px;
+    margin: 0 auto;
+    height: 300px;
+    padding-top: 10px;
+    background-color: rgb(231, 230, 230);
+}
+
+.empty{
+    margin: 0 auto;
+    width: fit-content;
+    position: relative;
+    margin-top: 120px;
+    font-size: 25px;
+    font-weight: bold;
+}
+.recommend{
+    width: 90%;
+    margin: 0 auto;
+    /* border-bottom: 1px solid black; */
+    height: 120px;
+}
+
+.bar{
+    color: rgb(196, 196, 196);
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.recommend-name, .re-commend-name{
+    font-weight: bold;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.recommend-date{
+    color: gray;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.recommend-content{
+    padding: 3px 0px 0px 8px;
+}
+
+.recommend-div hr{
+    width: 800px;
+    margin-top: 10px;
+    margin-right: 45px;
+}
+
+.more-recommend{
+    background-color: rgb(180, 180, 180);
+    padding: 4px 7px 4px 7px;
+    font-size: 14px;
+    margin-left: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.more-recommend:hover{
+    background-color: rgb(161, 161, 161);
+}
+
+.more-div{
+    width: 890px;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 2px solid rgb(196, 196, 196);
+    border-bottom: 2px solid rgb(196, 196, 196);
+    position: relative;
+    line-height: 3.0em;
+    padding: 0;
+    margin-top: -10px;
+
+}
+.more{
+    text-decoration: none;
+    color: black;
+    font-size: 17px;  
+    display:block;
+    width:100%;
+    height:100%;
+}
+
+/* .re-commend{
+    width: 690px;
+    margin: 20px 0px 0px 80px;
+    height: 160px;
+    border-top: 1px solid gray;
+} */
+
+.re-commend-name{
+    font-weight: bold;
+    margin-right: 20px;
+    font-size: 18px;
+    margin-left: 55px;
+}
+
+.re-commend-date{
+    color: gray;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.re-commend-content{
+    margin-left: 70px;
+    height: 70px;
+    padding-top: 5px;
+}
+
+/* .re-commend-div hr{
+    margin-left: 0px;
+    width: 800px;
+    margin-top: 30px;
+} */
+
+.re-more-div{
+    float: right;
+    width: 750px;
+    text-align: center;
+    border-top: 2px solid rgb(196, 196, 196);
+    border-bottom: 2px solid rgb(196, 196, 196);
+    margin-right: 1px;
+    line-height: 2.0em;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.icon{
+    width: 20px;
+    height: 20px;
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    display: inline-block;
+    margin-left: 15px;
+    position: absolute;
+}
+
+
+#re-commend-text{
+    width: 550px;
+    height: 95px;
+    resize: none;
+    border: 1px solid black;
+    font-size: 18px;
+    margin-left: 55px;
+    margin-top: 15px;
+    float: left;
+    
+}
+#write-re-commend{
+    float: left;
+    height: 101px;
+    width: 70px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: rgb(80, 80, 80);
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+#write-re-commend:hover{
+    background-color: rgb(161, 161, 161);
+}
+
+#re-textCount{
+    margin-top: 140px;
+    margin-left: 60px;
+}
+
+.re-commend-div{
+    width: 750px;
+    max-height: 180px;
+    min-height: 120px;
+    border-top: 0.1em solid rgb(150, 150, 150);
+    margin-left: 50px;
+
+} 
+
+div.re-commend-div:first-of-type {
+    margin-top: 30px;
+    width: 750px;
+    margin-left: 0px;
+    padding-left: 50px;
+}
+
+.re-commend-form-div{
+    width: 750px;
+    max-height: 180px;
+    min-height: 120px;
+    border-top: 0.1em solid rgb(150, 150, 150);
+    margin-left: 50px;
+
+}
+
+.good{
+    width: 80px;
+    border: 2px solid rgb(60, 60, 60);
+    display: inline-block;
+    margin-left: 150px;
+    border-radius: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: rgb(240, 240, 227);
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+.bad{
+    width: 85px;
+    border: 2px solid rgb(60, 60, 60);
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgb(240, 240, 227);
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.good:hover, .bad:hover{
+    background-color: rgb(228, 228, 220);
+    box-shadow: 1px 1px 1px rgb(94, 94, 94);
+}
+
+.good img{
+    width: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.bad img{
+    width: 35px;
+    margin-top: 7px;
+    margin-bottom: 3px;
+    margin-left: 20px;
+}
+
+.like_cnt{
+    position: absolute;
+    margin-top: 13px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.dislike_cnt{
+    position: absolute;
+    margin-top: 12px;
+    font-size: 20px;
+}
