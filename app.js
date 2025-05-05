@@ -3,6 +3,8 @@ const router = express.Router();
 const app = express();
 const port = 3001;
 const db = require('./db');
+const axios = require('axios');
+
 var fs = require('fs');
 var ejs = require('ejs');
 
@@ -508,3 +510,47 @@ app.use('/checkDislikes', (req, res) => {
   }
 });
 
+// API 키 설정
+const UNIVCERT_API_KEY = '6749c62c-4130-42c6-9ce6-9147c27f91f3';
+
+// 이메일 인증번호 발송
+app.post('/api/v1/certify', async (req, res) => {
+    const { email, univName } = req.body;
+    
+    try {
+        const response = await axios.post('https://univcert.com/api/v1/certify', {
+            key: UNIVCERT_API_KEY,
+            email: email,
+            univName: univName,
+            univ_check: true
+        });
+        
+        if (response.data.success) {
+            res.json({ success: true });
+        } else {
+            res.status(400).json({ success: false, message: response.data.message });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+    }
+});
+
+app.post('/api/v1/certifycode', async (req, res) => {
+    const { email, code } = req.body;
+    
+    try {
+        const response = await axios.post('https://univcert.com/api/v1/certifycode', {
+            key: UNIVCERT_API_KEY,
+            email: email,
+            code: code
+        });
+        
+        if (response.data.success) {
+            res.json({ success: true });
+        } else {
+            res.status(400).json({ success: false, message: '인증번호가 일치하지 않습니다.' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
+    }
+});

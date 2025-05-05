@@ -13,18 +13,13 @@ html, body{
     margin:0 auto;
 }
 
-.container{
-    height: 1000px;
-    width: 100%;
-}
-
 .signin-box{
     border: 2px solid rgb(24, 24, 24);
     border-radius: 10px;
     box-shadow: 1px 1px 4px rgb(24, 24, 24);
     margin: 0 auto;
     width: 500px;
-    height: 600px;
+    height: 650px;  
     position: relative;
     top: 200px;
     text-align: center;
@@ -33,8 +28,14 @@ html, body{
 .signin-text{
     font-size: 40px;
     font-weight: bold;
-    margin-top: 130px;
+    margin-top: 50px;  /* 130px에서 50px로 줄임 */
     text-shadow: 4px 4px 4px rgb(136, 136, 136);
+}
+
+/* 또는 컨테이너 높이도 조절 */
+.container{
+    height: 1200px; 
+    width: 100%;
 }
 
 input{
@@ -136,6 +137,7 @@ input[type="button"]:hover{
     margin-right:40px;
     margin-top: 10px;
     margin-bottom: 10px;
+    text-align: right;
 }
 .navline{
     width: 100%;

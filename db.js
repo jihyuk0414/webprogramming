@@ -9,38 +9,27 @@ const connection = mysql.createConnection({
 });
 
 function getAllMemos(callback){
-    connection.query('SELECT * FROM board ORDER BY date DESC;', (err, rows, fields) => {
+    connection.query('SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, `like`, dislike FROM board ORDER BY date DESC;', (err, rows, fields) => {
         if(err) throw err;
         callback(rows);
     });
 }
 
 function getRankMemos(callback){
-    connection.query('SELECT * FROM board ORDER BY watch DESC, \`like\` DESC LIMIT 0, 5;', (err, data, fields) => {
+    connection.query('SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, `like`, dislike FROM board ORDER BY watch DESC, \`like\` DESC LIMIT 0, 5;', (err, data, fields) => {
         if(err) throw err;
         callback(data);
     });
 }
 
-// function getSearchMemosPagenation(no, page_size, searchKeyword, callback){
-
-//     // 검색 키워드가 존재하는 경우, 제목에 검색 키워드가 포함된 레코드를 검색합니다.
-//     connection.query(`SELECT * FROM board WHERE title LIKE ${connection.escape('%' + searchKeyword + '%')} ORDER BY date DESC LIMIT ${no}, ${page_size}`, (err, rows, fields) => {
-//         if (err) throw err;
-//         callback(rows);
-//     });
-      
-// }
-
 function getMemosPagenation(no, page_size, searchKeyword, callback) {
   if (!searchKeyword) {
-    connection.query(`SELECT * FROM board ORDER BY date DESC LIMIT ${no}, ${page_size}`, (err, rows, fields) => {
+    connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, \`like\`, dislike FROM board ORDER BY date DESC LIMIT ${no}, ${page_size}`, (err, rows, fields) => {
       if (err) throw err;
       callback(rows);
     });
   } else {
-    // 검색 키워드가 존재하는 경우, 제목에 검색 키워드가 포함된 레코드를 검색합니다.
-    connection.query(`SELECT * FROM board WHERE title LIKE ${connection.escape('%' + searchKeyword + '%')} ORDER BY date DESC LIMIT ${no}, ${page_size}`, (err, rows, fields) => {
+    connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, \`like\`, dislike FROM board WHERE title LIKE ${connection.escape('%' + searchKeyword + '%')} ORDER BY date DESC LIMIT ${no}, ${page_size}`, (err, rows, fields) => {
       if (err) throw err;
       callback(rows);
     });
@@ -52,7 +41,7 @@ function insertMemo(content, title, name){
 }
 
 function getMemo(title, value, callback){
-    connection.query(`SELECT num, title, name, date, content, watch FROM board WHERE title = '${title}' && num = '${value}';`, (err, rows, fields) => {
+    connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, \`like\`, dislike FROM board WHERE title = '${title}' && num = '${value}';`, (err, rows, fields) => {
         if(err) throw err;
         callback(rows);
     });
@@ -81,7 +70,7 @@ function checkUser(id, callback){
 }
 
 function getInfo(title, value, name, callback){
-    connection.query(`SELECT * FROM board WHERE title = '${title}' && num = '${value}' && name = '${name}';`, (err, rows, fields) => {
+    connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date FROM board WHERE title = '${title}' && num = '${value}' && name = '${name}';`, (err, rows, fields) => {
         if(err) throw err;
         callback(rows);
     });
@@ -103,25 +92,28 @@ function commendInsert(value, content, user, commendId){
 
 function getCommend(value, offset, limit, callback) {
     connection.query(
-      `SELECT * FROM commend WHERE memo_id = '${value}' ORDER BY commend_date DESC LIMIT ${offset}, ${limit};`,
+      `SELECT commend_id, memo_id, commend_name, DATE_FORMAT(commend_date, '%Y-%m-%d %H:%i:%s') as date, commend_content FROM commend WHERE memo_id = ? ORDER BY commend_date DESC LIMIT ?, ?`,
+      [value, offset, limit],
       (err, rows, fields) => {
         if (err) throw err;
         callback(rows);
       }
     );
-  }
+}
 
   function getCommendCount(value, callback) {
     connection.query(`SELECT COUNT(*) AS count FROM commend WHERE memo_id = '${value}';`, (err, rows, fields) => {
       if (err) throw err;
-      callback(rows); // 댓글 전체 개수를 콜백으로 전달
+      callback(rows); 
     });
   }
 
 
 function getRecommend(commendId, offset, limit, callback) {
     connection.query(
-      `SELECT * FROM recommend WHERE commend_id = '${commendId}' ORDER BY recommend_date DESC LIMIT ${offset}, ${limit};`,
+      `SELECT recommend_id, commend_id, recommend_name, 
+         DATE_FORMAT(recommend_date, '%Y-%m-%d %H:%i') as date, 
+         recommend_content FROM recommend WHERE commend_id = '${commendId}' ORDER BY recommend_date DESC LIMIT ${offset}, ${limit};`,
       (err, rows, fields) => {
         if (err) throw err;
         callback(rows);
@@ -129,7 +121,6 @@ function getRecommend(commendId, offset, limit, callback) {
     );
 }
 function insertRecommend(commend_id, recommend_name, recommend_content, recommend_id) {
-    // `recommend_date`는 `NOW()`로 자동 설정되므로, `recommend_date`를 따로 쿼리에 넣지 않아도 됩니다.
     connection.query(
         `INSERT INTO recommend (commend_id, recommend_name, recommend_date, recommend_content, recommend_id) 
         VALUES ('${commend_id}', '${recommend_name}', NOW(), '${recommend_content}', '${recommend_id}');`,

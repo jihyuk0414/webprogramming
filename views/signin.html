@@ -16,10 +16,8 @@
             </div>
 
             <div class="nav">
+                <a href="/main"><span class="li">CONTENT</span></a>
                 <a href="/"><span class="li">HOME</span></a>
-                <a href="#"><span class="li">CONTENT</span></a>
-                <a href="#"><span class="li">HOME</span></a>
-                <a href="#"><span class="li">HOME</span></a>
             </div>
 
         </nav>
@@ -36,6 +34,18 @@
                 <input type="password" class="password" id="password" name="password" placeholder="password">
 
                 <input type="text" class="nickname" id="nickname" name="nickname" placeholder="nickname">
+
+                <input type="text" class="univ-email" id="univEmail" name="univEmail" placeholder="대학 이메일">
+        
+                <input type="text" class="univ-name" id="univName" name="univName" placeholder="대학교 이름">
+                
+                <div class="verification-group">
+                    <input type="text" class="verification-code" id="verificationCode" name="verificationCode" placeholder="인증번호" disabled>
+                    <div class="button-group">
+                        <button type="button" class="verify-btn" id="sendCode">인증번호 발송</button>
+                        <button type="button" class="verify-btn" id="verifyCode" disabled>인증확인</button>
+                    </div>
+                </div>
 
                 <input type="submit" value="SIGNIN">
             </form>
