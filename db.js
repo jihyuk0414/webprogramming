@@ -22,29 +22,36 @@ function getRankMemos(callback){
     });
 }
 
-function getMemosPagenation(no, page_size, searchKeyword, callback) {
-  if (!searchKeyword) {
-    connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, \`like\`, dislike FROM board ORDER BY date DESC LIMIT ${no}, ${page_size}`, (err, rows, fields) => {
-      if (err) throw err;
-      callback(rows);
-    });
-  } else {
-    connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, \`like\`, dislike FROM board WHERE title LIKE ${connection.escape('%' + searchKeyword + '%')} ORDER BY date DESC LIMIT ${no}, ${page_size}`, (err, rows, fields) => {
-      if (err) throw err;
-      callback(rows);
-    });
-  }
+function getMemosPagenation(no, page_size, searchKeyword, category, callback) {
+    if (!searchKeyword) {
+        connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i") as date, name, watch, \`like\`, dislike FROM board WHERE category = ? ORDER BY date DESC LIMIT ?, ?`, [category, no, page_size], (err, rows) => {
+            if (err) throw err;
+            callback(rows);
+        });
+    } else {
+        connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i") as date, name, watch, \`like\`, dislike FROM board WHERE category = ? AND title LIKE ? ORDER BY date DESC LIMIT ?, ?`, [category, `%${searchKeyword}%`, no, page_size], (err, rows) => {
+            if (err) throw err;
+            callback(rows);
+        });
+    }
 }
 
-function insertMemo(content, title, name){
-    connection.query(`INSERT INTO board (content, date, name, title) VALUES ('${content}',NOW(),'${name}', '${title}')`);
+function insertMemo(content, title, name, category) {
+    connection.query(
+        `INSERT INTO board (content, date, name, title, category) VALUES (?, NOW(), ?, ?, ?)`,
+        [content, name, title, category]
+    );
 }
 
-function getMemo(title, value, callback){
-    connection.query(`SELECT num, title, content, DATE_FORMAT(date, "%Y-%m-%d %H:%i:%s") as date, name, watch, \`like\`, dislike FROM board WHERE title = '${title}' && num = '${value}';`, (err, rows, fields) => {
-        if(err) throw err;
-        callback(rows);
-    });
+function getMemo(title, value, callback) {
+    connection.query(
+        `SELECT num, title, name, DATE_FORMAT(date, "%Y-%m-%d %H:%i") as date, content, watch, \`like\`, category FROM board WHERE title = ? AND num = ?`,
+        [title, value],
+        (err, rows, fields) => {
+            if(err) throw err;
+            callback(rows);
+        }
+    );
 }
 
 function watchCount(title, value){
@@ -92,7 +99,7 @@ function commendInsert(value, content, user, commendId){
 
 function getCommend(value, offset, limit, callback) {
     connection.query(
-      `SELECT commend_id, memo_id, commend_name, DATE_FORMAT(commend_date, '%Y-%m-%d %H:%i:%s') as date, commend_content FROM commend WHERE memo_id = ? ORDER BY commend_date DESC LIMIT ?, ?`,
+      `SELECT commend_id, memo_id, commend_name, DATE_FORMAT(commend_date, '%Y-%m-%d %H:%i:%s') as commend_date, commend_content FROM commend WHERE memo_id = ? ORDER BY commend_date DESC LIMIT ?, ?`,
       [value, offset, limit],
       (err, rows, fields) => {
         if (err) throw err;
@@ -112,7 +119,7 @@ function getCommend(value, offset, limit, callback) {
 function getRecommend(commendId, offset, limit, callback) {
     connection.query(
       `SELECT recommend_id, commend_id, recommend_name, 
-         DATE_FORMAT(recommend_date, '%Y-%m-%d %H:%i') as date, 
+         DATE_FORMAT(recommend_date, '%Y-%m-%d %H:%i') as recommend_date, 
          recommend_content FROM recommend WHERE commend_id = '${commendId}' ORDER BY recommend_date DESC LIMIT ${offset}, ${limit};`,
       (err, rows, fields) => {
         if (err) throw err;

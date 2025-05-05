@@ -76,32 +76,48 @@ app.use('/', express.static("css"));
 app.use('/', express.static("images"));
 app.use('/', express.static("js"));
 
-app.get("/board/:cur", function (req, res) {
-
+app.get("/board/:category/:cur", function (req, res) {
   var searchKeyword = req.query.search || "";
-
-  //페이지당 게시물 수 : 한 페이지 당 10개 게시물
-  var page_size = 10;
-  //페이지의 갯수 : 1 ~ 10개 페이지
-  var page_list_size = 10;
-  //limit 변수
-  var no = "";
-  //전체 게시물의 숫자
-  var totalPageCount = 0;
-  if (!searchKeyword) {
-    var queryString = 'SELECT count(*) AS cnt FROM board';
-  } else {
-    var queryString = `SELECT count(*) AS cnt FROM board WHERE title LIKE ${connection.escape('%' + searchKeyword + '%')}`;
+  var category = req.params.category;
+  
+  // 카테고리 유효성 검사
+  if (!['free', 'official', 'unofficial'].includes(category)) {
+    return res.redirect('/board/free/1');
   }
   
-  connection.query(queryString, function (error2, data) {
+  // 카테고리 타이틀 설정
+  let boardTitle = '';
+  switch(category) {
+    case 'free':
+      boardTitle = '자유 게시판';
+      break;
+    case 'official':
+      boardTitle = '정규 동아리 게시판';
+      break;
+    case 'unofficial':
+      boardTitle = '사설 동아리 게시판';
+      break;
+  }
+
+  var page_size = 10;
+  var page_list_size = 10;
+  var no = "";
+  var totalPageCount = 0;
+  
+  // 카테고리 포함한 쿼리 수정
+  if (!searchKeyword) {
+    var queryString = 'SELECT count(*) AS cnt FROM board WHERE category = ?';
+  } else {
+    var queryString = `SELECT count(*) AS cnt FROM board WHERE category = ? AND title LIKE ${connection.escape('%' + searchKeyword + '%')}`;
+  }
+  
+  connection.query(queryString, [category], function (error2, data) {
     if (error2) {
       console.log(error2 + "메인 화면 mysql 조회 실패");
       return
     }
 
-    totalPageCount = data[0].cnt
-
+    totalPageCount = data[0].cnt;
     var curPage = req.params.cur || 1;
 
     if (totalPageCount < 0) {
@@ -114,13 +130,13 @@ app.get("/board/:cur", function (req, res) {
     var startPage = ((curSet - 1) * 10) + 1 
     var endPage = (startPage + page_list_size) - 1;
 
-
     if (curPage < 0) {
       no = 0
     } else {
       no = (curPage - 1) * 10
     }
-     var result2 = {
+    
+    var result2 = {
       "curPage": curPage,
       "page_list_size": page_list_size,
       "page_size": page_size,
@@ -132,15 +148,24 @@ app.get("/board/:cur", function (req, res) {
       "searchKeyword": searchKeyword,
     };
 
-    db.getMemosPagenation(no, page_size, searchKeyword, (rows) => {
+    // 카테고리 포함한 함수로 변경
+    db.getMemosPagenation(no, page_size, searchKeyword, category, (rows) => {
       if(req.session.user){
-        res.render(__dirname + '/views/board.ejs', {data: rows,
-                                                    pasing: result2,
-                                                    user: req.session.user});
+        res.render(__dirname + '/views/board.ejs', {
+          data: rows,
+          pasing: result2,
+          user: req.session.user,
+          category: category,
+          boardTitle: boardTitle
+        });
       }
       else{
-        res.render(__dirname + '/views/board.ejs', {data: rows,
-          pasing: result2});
+        res.render(__dirname + '/views/board.ejs', {
+          data: rows,
+          pasing: result2,
+          category: category,
+          boardTitle: boardTitle
+        });
       }
     });
   });
@@ -148,8 +173,12 @@ app.get("/board/:cur", function (req, res) {
 
 app.get("/main", function (req, res) {
 
-  res.redirect('board/1');
+  res.redirect('board/official/1');
 
+});
+
+app.get("/board", function (req, res) {
+  res.redirect('/board/official/1');
 });
 
 app.get('/write', (req, res) => {
@@ -157,9 +186,10 @@ app.get('/write', (req, res) => {
   let today = new Date();
   today.setHours(today.getHours() + 9);
   let date = today.toISOString().replace('T', ' ').substring(0, 10);
+  const category = req.query.category || 'free'; 
 
   if(req.session.user){
-    res.render(__dirname + '/views/write.ejs', { date, user: req.session.user });
+    res.render(__dirname + '/views/write.ejs', { date, user: req.session.user, category : category });
   }
   else{
     res.status(400).json({ message: '로그인 후 이용가능합니다.' });
@@ -180,6 +210,7 @@ app.use('/insert', function (req, res, next) {
   let title = req.body.title;
   let name = req.body.name;
   let content = req.body.content;
+  let category = req.body.category;
   if(title.length <= 0){
     res.status(400).json({ message: '글 제목을 입력해주세요.' });
         return;
@@ -188,7 +219,7 @@ app.use('/insert', function (req, res, next) {
     res.status(400).json({ message: '내용을 입력해주세요.' });
     return;
   }
-  db.insertMemo(content, title, name);
+  db.insertMemo(content, title, name, category);
 
   res.redirect('/main');
 });
@@ -211,7 +242,7 @@ app.use('/update', function (req, res, next) {
 
   db.memoUpdate(title, value, name, content);
   
-  res.redirect(`/memo/?title=${title}&value=${value}&name=${name}`);
+  res.redirect(`/memo/?title=${title}&value=${value}&name=${name}&category=${category}`);
 });
 
 app.use('/delete', function (req, res, next) {
@@ -232,10 +263,10 @@ app.get('/memo', (req, res) => {
   db.getMemo(title, value, (rows) => {
 
     if(req.session.user){
-      res.render(__dirname + '/views/memo.ejs', { rows: rows, user: req.session.user });
+      res.render(__dirname + '/views/memo.ejs', { rows: rows, user: req.session.user, category : category });
     }
     else{
-      res.render(__dirname + '/views/memo.ejs', { rows: rows });
+      res.render(__dirname + '/views/memo.ejs', { rows: rows, category : category });
     }
   });
 });
