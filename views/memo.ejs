@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="http://localhost:3001/memo.css">
+  <script type="text/javascript" src="http://localhost:3001/memoCheck.js"></script>
+  <script type="text/javascript" src="http://localhost:3001/delete.js"></script>
+  <script type="text/javascript" src="http://localhost:3001/commend.js"></script>
+  <script type="text/javascript" src="http://localhost:3001/recommend.js"></script>
+  <script type="text/javascript" src="http://localhost:3001/postLike.js"></script>
+  <script type="text/javascript" src="http://localhost:3001/postDislike.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  
+  <%-include('header.ejs')%>
+
+  <div class="container">
+
+  </div>
+
+  <div class="main-container">
+    <div class="content">
+      <button onclick="history.back()" class="back"><img class="back-img" src="../back.png"><span>목록으로</span></button>
+      <table class="table">
+        <tr>
+          <td colspan="6" class="top">게시글</td>
+        </tr>
+        <tr>
+          <td class="num-title">글번호</td>
+          <td class="num"><%= rows[0].num %></td>
+          <td class="date-title">작성일</td>
+          <td class="date"><%= rows[0].date %></td>
+          <td class="name-title">작성자</td>
+          <td class="name" name="name"><%= rows[0].name %></td>
+        </tr>
+
+        <tr>
+          <td class="title-title">제목</td>
+          <td colspan="3" class="title"><%= rows[0].title %></td>
+          <td class="watch-title">조회수</td>
+          <td class="watch"><%= rows[0].watch %></td>
+        </tr>
+        <tr>
+          <td colspan="6" class="content-title">내용</td>
+        </tr>
+        <tr>
+          <td colspan="6" class="table-content"><%= rows[0].content %></td>
+        </tr>
+      </table>
+
+      <div class="update-delete">
+        <a class="good"><img class="good_img" src="../like.png"><span class="like_cnt"></span></a>
+        <a class="bad"><span class="dislike_cnt"></span><img class="bad_img" src="../dislike.png"></a>
+        <a href="/modify/?title=<%= rows[0].title %>&value=<%= rows[0].num %>&name=<%= rows[0].name %>" class="update-button" id="update-button">수정</a>
+        <a class="delete-button" id="delete-button">삭제</a>
+      </div>
+
+      <div class="commend">
+        <p class="commend-title">댓글<span class="cnt"></span></p>
+        <hr>
+        <form class="write-commend" id="write-commend" method="POST">
+          <textarea id="textBox" class="write-textarea" maxlength="100" name="textBox" placeholder="최대 100자"></textarea>
+          <span id="textCount">0 / 100자</span>
+          <input type="submit" id="commend-submit" value="등록">
+        </form>
+        <hr>
+      </div>
+      
+
+      <div class="recommend-div">
+          <!-- 
+          <div class="re-more-div">
+            <a class="re-more">답글 더보기 ▼</a>
+          </div> -->
+
+      </div>
+
+
+<!-- 
+      <div class="empty-div">
+         <div class="empty">댓글이 없습니다.</div>
+      </div> -->
+
+      <div class="more-div">
+        <a href="#" class="more">댓글 더보기 ▼</a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <%-include('footer.ejs')%>
+  
+</body>
+</html>
