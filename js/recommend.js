@@ -146,7 +146,7 @@ function loadRecommend(id, offset, limit) {
                         <div class="re-commend value="${recomment.recommend_id}">
                             <p><span><div class="icon"></div></span></p>
                             <span class="re-commend-name">${recomment.recommend_name}</span>
-                            <span class="bar">|</span><span class="re-commend-date">${recomment.recommend_date}</span></p>
+                            <span class="bar">|</span><span class="re-commend-date">${recomment.date}</span></p>
                             <div class="re-commend-content">${recomment.recommend_content}</div>    
                         </div>
                         
@@ -279,7 +279,7 @@ $(document).ready(function () {
                             <div class="re-commend value="${recomment.recommend_id}">
                                 <p><span><div class="icon"></div></span></p>
                                 <span class="re-commend-name">${recomment.recommend_name}</span>
-                                <span class="bar">|</span><span class="re-commend-date">${recomment.recommend_date}</span></p>
+                                <span class="bar">|</span><span class="re-commend-date">${recomment.date}</span></p>
                                 <div class="re-commend-content">${recomment.recommend_content}</div>    
                             </div>
                         

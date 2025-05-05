@@ -99,7 +99,7 @@ function commendInsert(value, content, user, commendId){
 
 function getCommend(value, offset, limit, callback) {
     connection.query(
-      `SELECT commend_id, memo_id, commend_name, DATE_FORMAT(commend_date, '%Y-%m-%d %H:%i:%s') as commend_date, commend_content FROM commend WHERE memo_id = ? ORDER BY commend_date DESC LIMIT ?, ?`,
+      `SELECT commend_id, memo_id, commend_name, DATE_FORMAT(commend_date, '%Y-%m-%d %H:%i') as commend_date, commend_content FROM commend WHERE memo_id = ? ORDER BY commend_date DESC LIMIT ?, ?`,
       [value, offset, limit],
       (err, rows, fields) => {
         if (err) throw err;
@@ -119,8 +119,8 @@ function getCommend(value, offset, limit, callback) {
 function getRecommend(commendId, offset, limit, callback) {
     connection.query(
       `SELECT recommend_id, commend_id, recommend_name, 
-         DATE_FORMAT(recommend_date, '%Y-%m-%d %H:%i') as recommend_date, 
-         recommend_content FROM recommend WHERE commend_id = '${commendId}' ORDER BY recommend_date DESC LIMIT ${offset}, ${limit};`,
+         DATE_FORMAT(recommend_date, '%Y-%m-%d %H:%i') as date, 
+         recommend_content FROM recommend WHERE commend_id = '${commendId}' ORDER BY recommend_date ASC LIMIT ${offset}, ${limit};`,
       (err, rows, fields) => {
         if (err) throw err;
         callback(rows);
