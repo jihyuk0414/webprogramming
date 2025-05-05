@@ -260,25 +260,16 @@ html, body{
     right: 10px;
   }
   
-  /* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
-  .slide_item.item1 {
-    background-image: url("../background_img3.jpg");
-    background-size: 100% 100%;
-  }
   .slide_item.item2 {
-    background-image: url("../background.jpg");
+    background-image: url("../5.jpg");
     background-size: 100% 100%;
   }
   .slide_item.item3 {
-    background-image: url("../puppies.jpg");
+    background-image: url("../2.jpg");
     background-size: 100% 100%;
   }
   .slide_item.item4 {
-    background-image: url("../darkroom.jpg");
-    background-size: 100% 100%;
-  }
-  .slide_item.item5 {
-    background-image: url("../background2.jpeg");
+    background-image: url("../6.jpg");
     background-size: 100% 100%;
   }
 
