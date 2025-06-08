@@ -99,8 +99,8 @@ app.get("/board/:category/:cur", function (req, res) {
       break;
   }
 
-  var page_size = 10;
-  var page_list_size = 10;
+  var page_size = 3;
+  var page_list_size = 3;
   var no = "";
   var totalPageCount = 0;
   
@@ -147,8 +147,7 @@ app.get("/board/:category/:cur", function (req, res) {
       "endPage": endPage,
       "searchKeyword": searchKeyword,
     };
-
-    // 카테고리 포함한 함수로 변경
+    
     db.getMemosPagenation(no, page_size, searchKeyword, category, (rows) => {
       if(req.session.user){
         res.render(__dirname + '/views/board.ejs', {
@@ -587,3 +586,5 @@ app.post('/api/v1/certifycode', async (req, res) => {
         res.status(500).json({ success: false, message: '서버 오류가 발생했습니다.' });
     }
 });
+
+module.exports = app

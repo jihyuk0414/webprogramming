@@ -36,6 +36,9 @@ function getMemosPagenation(no, page_size, searchKeyword, category, callback) {
     }
 }
 
+
+
+
 function insertMemo(content, title, name, category) {
     connection.query(
         `INSERT INTO board (content, date, name, title, category) VALUES (?, NOW(), ?, ?, ?)`,

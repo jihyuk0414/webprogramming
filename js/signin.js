@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-  let isEmailVerified = false;
+  let isEmailVerified = true;
     
   $('#sendCode').click(function() {
       const email = $('#univEmail').val();
