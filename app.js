@@ -587,4 +587,4 @@ app.post('/api/v1/certifycode', async (req, res) => {
     }
 });
 
-module.exports = app
+module.exports = app;
