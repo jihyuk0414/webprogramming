@@ -1,82 +1,28 @@
-# Node.js를 이용한 CRUD 게시판 만들기
-<br>
+동아리방은 대학의 경계를 넘어 모든 사설 및 정규 동아리 모집 정보를 한곳에서 공유하고 접근할 수 있는 플랫폼입니다. 
+특정 학교에 구애받지 않고 누구나 동아리와 모임을 홍보하고 찾을 수 있는 열린 게시판을 제공합니다.
+💫 주요 기능
 
-## ⏳ 개발기간
+🔐 대학생 인증 시스템
+univcert.com API를 활용한 안전한 대학교 인증
+인증된 사용자만 활동 가능하여 신뢰성 보장
 
-약 1개월 (2023.06.25 ~ 2023.07.31)
+📋 게시판 시스템
 
-<br/>
+동아리 및 모임 모집 게시판
+카테고리별 분류 (사설 / 정규)
+페이징 처리로 빠른 콘텐츠 탐색
 
-## 📖 개요
+🔍 검색 기능
+사용자 맞춤형 검색 필터링 제공
 
-Node.js - Express를 이용한 간단한 CRUD 게시판입니다. <br>
-게시판에 게시된 게시물들을 확인할 수 있으며, 원하는 게시물을 검색해서 확인할 수 있습니다.<br>
-회원가입 및 로그인 이후 게시글 및 댓글을 작성할 수 있습니다. 또한 게시글은 게시글 작성자만이 게시글을 수정 및 삭제할 수 있습니다.
+👍 인기 게시물 노출
+인기 게시물 노출을 통한 양질의 콘텐츠 큐레이션
 
+💬 댓글 기능
 
-####  Programming Language
+실시간 소통 및 질의응답 가능
 
-* <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white"> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jQuery&logoColor=white"> 
-  <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=Javascript&logoColor=white"><br>
+🚀 기술 스택
+프론트엔드
 
-####  Framework
-
-* <img src="https://img.shields.io/badge/Nodejs-339933?style=flat&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/Express-5D5D5D?style=flat&logo=Express&logoColor=white">
-
-####  Database
-
-* <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"><br>
-
-<br/>
-
-## 📄 웹페이지 구성
-
- * ### 메인화면
-
-   <img src="https://github.com/hkPark0616/Node.js/assets/113004801/b3f82df1-d85d-4990-8f09-e79d943083d7.gif"  width="800" height="400"/>
-
- * ### 회원가입
-   #### 🔸회원가입 성공
-     <img src="https://github.com/hkPark0616/Node.js/assets/113004801/8e92a81b-58fe-4afa-a31f-87599bda8f19.gif" width="800" height="400">
-     
-   #### 🔸회원가입 실패
-     <img src="https://github.com/hkPark0616/Node.js/assets/113004801/2f816c97-f296-4bdf-99d6-22444d779f1e.gif" width="800" height="400">
- 
- * ### 로그인
-   #### 🔸로그인 성공
-     <img src="https://github.com/hkPark0616/Node.js/assets/113004801/32f081e3-915c-4219-8d1a-24aef9940feb.gif" width="800" height="400">
-     
-   #### 🔸로그인 실패
-     <img src="https://github.com/hkPark0616/Node.js/assets/113004801/4345a259-27b7-4405-b915-4dda782dbb3f.gif" width="800" height="400">
-     
- * ### 게시글 목록 및 게시글 검색
-
-    <img src="https://github.com/hkPark0616/Node.js/assets/113004801/bb76bdb0-2427-430e-b041-6111040db32e.gif"  width="800" height="400"/>
-
- * ### 게시글 작성
-
-    <img src="https://github.com/hkPark0616/Node.js/assets/113004801/60824893-7b87-4f3d-aeb8-abde9e719003.gif" width="800" height="400">
-
- * ### 게시글 수정 및 삭제
-   #### 🔸게시글 수정
-
-    <img src="https://github.com/hkPark0616/Node.js/assets/113004801/72879e3c-6c88-4d3b-9e17-9264b67e4939.gif" width="800" height="400">
-
-   #### 🔸게시글 삭제
-
-    <img src="https://github.com/hkPark0616/Node.js/assets/113004801/3c189c2a-6483-4dc8-8232-708c69f323a5.gif" width="800" height="400">
-
- * ### 댓글 작성
-   #### 🔸댓글
-
-    <img src="https://github.com/hkPark0616/Node.js/assets/113004801/e3df2120-a65a-4e97-9801-9a360eb08db3.gif" width="800" height="400">
-
-   #### 🔸대댓글
-
-    <img src="https://github.com/hkPark0616/Node.js/assets/113004801/070aacba-0989-4925-9e0e-39b22ec41ef7.gif" width="800" height="400">
-
-  * ### 게시글 좋아요 및 싫어요
-
-    <img src="https://github.com/hkPark0616/Node.js/assets/113004801/1ccdba39-d469-4165-a0a4-5bf67dcf08d2.gif" width="800" height="400">
-
-    
+JavaScript / MySQL
